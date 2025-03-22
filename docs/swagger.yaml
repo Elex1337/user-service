@@ -1,0 +1,117 @@
+definitions:
+  dto.CreateUserDTO:
+    properties:
+      password:
+        type: string
+      userName:
+        type: string
+    type: object
+  dto.UpdateUserDTO:
+    properties:
+      id:
+        type: integer
+      password:
+        type: string
+      userName:
+        type: string
+    type: object
+  dto.UserResponseDTO:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      updatedAt:
+        type: string
+      userName:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: User API
+  title: User Service API
+paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: userDto
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.UserResponseDTO'
+      summary: Создание юзера
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: userDto
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateUserDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponseDTO'
+      summary: Обновление юзера
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Удаление пользователя
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponseDTO'
+      summary: получает юзера по ID
+      tags:
+      - users
+swagger: "2.0"
